@@ -4,7 +4,7 @@
  * to kill.
  *
  * @author Evans
- * @version (0.1)
+ * @version 1.1
  */
 public class Grok
 {
@@ -13,13 +13,14 @@ public class Grok
 
     // instance variables
     private int powerLevel;
-    private boolean isAlive = true;
+    private boolean isAlive;
 
     /*
      * Initializes a Grok object to the default power level of 50.
      */
     public Grok()
     {
+        isAlive = true;
         setPowerLevel(DEFAULT_POWER_LEVEL);
         maxMin();
     }
@@ -31,6 +32,7 @@ public class Grok
      */
     public Grok(int powerLevel)
     {
+        isAlive = true;
         setPowerLevel(powerLevel);
         maxMin();
     }
@@ -38,7 +40,7 @@ public class Grok
     public void maxMin(){
         if (this.powerLevel > MAX_POWER_LEVEL){
             this.powerLevel = MAX_POWER_LEVEL;
-        } if(this.powerLevel <= 0 || isDead()){
+        } if(this.powerLevel <= 0){
             this.powerLevel = 0;
             isAlive = false;
         }
