@@ -3,7 +3,7 @@
  * a PowerPill to replenish their energy.  This makes them difficult
  * to kill.
  *
- * @author (You Again)
+ * @author Evans
  * @version (0.1)
  */
 public class Grok
@@ -13,7 +13,7 @@ public class Grok
 
     // instance variables
     private int powerLevel;
-    private boolean isAlive;
+    private boolean isAlive = true;
 
     /*
      * Initializes a Grok object to the default power level of 50.
@@ -21,6 +21,7 @@ public class Grok
     public Grok()
     {
         setPowerLevel(DEFAULT_POWER_LEVEL);
+        maxMin();
     }
 
     /*
@@ -31,7 +32,18 @@ public class Grok
     public Grok(int powerLevel)
     {
         setPowerLevel(powerLevel);
+        maxMin();
     }
+
+    public void maxMin(){
+        if (this.powerLevel > MAX_POWER_LEVEL){
+            this.powerLevel = MAX_POWER_LEVEL;
+        } if(this.powerLevel <= 0 || isDead()){
+            this.powerLevel = 0;
+            isAlive = false;
+        }
+    }
+
 
     // accessor methods
 
@@ -46,7 +58,8 @@ public class Grok
 
     public boolean isDead()
     {
-        // TODO: replace this line with your code here
+        isAlive = this.powerLevel > 0;
+        return (this.powerLevel <= 0);
     }
 
     // mutator methods
@@ -57,7 +70,11 @@ public class Grok
      */
     public void setPowerLevel(int powerLevel)
     {
+        if(!(isAlive)){
+            powerLevel = 0;
+        }
         this.powerLevel = powerLevel;
+        maxMin();
     }
 
     /*
@@ -69,6 +86,7 @@ public class Grok
     public void takePowerPill(PowerPill pill)
     {
         setPowerLevel(powerLevel + pill.getPower());
+        maxMin();
     }
 
     /*
@@ -78,6 +96,7 @@ public class Grok
     public void tookHit()
     {
         setPowerLevel(powerLevel - 5);
+        maxMin();
     }
 
     //================== Do Not Touch Code Below this line =============================
